@@ -1,0 +1,49 @@
+{
+	"name": "typesite-jsx-layouts",
+	"version": "1.0.0",
+	"description": "Typesite plugin to wrap files with a JSX layout rendered to HTML",
+	"scripts": {
+		"build": "tsc",
+		"test": "mocha %NODE_DEBUG_OPTION% -r ts-node/register tests/**/*.test.*"
+	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"engines": {
+		"node": ">=9.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/EvidentlyCube/typesite-jsx-layouts.git"
+	},
+	"keywords": [
+		"typesite",
+		"typescript",
+		"static-website-generator",
+		"website",
+		"static",
+		"generator",
+		"filter"
+	],
+	"author": "Maurycy Zarzycki <maurycy@evidentlycube.com> (https://www.evidentlycube.com)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/EvidentlyCube/typesite-jsx-layouts/issues"
+	},
+	"homepage": "https://github.com/EvidentlyCube/typesite-jsx-layouts#readme",
+	"dependencies": {
+		"@types/node": "^9.4.7",
+		"@types/react": "^16.0.40",
+		"@types/react-dom": "^16.0.4",
+		"react": "^16.2.0",
+		"react-dom": "^16.2.0",
+		"typesite": "^0.3.0"
+	},
+	"devDependencies": {
+		"@types/chai": "^4.1.2",
+		"@types/mocha": "^2.2.48",
+		"chai": "^4.1.2",
+		"mocha": "^5.0.4",
+		"ts-node": "^5.0.1",
+		"typescript": "^2.7.2"
+	}
+}
