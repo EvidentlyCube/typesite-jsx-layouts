@@ -4,6 +4,9 @@ import {ContentFile, ContentFileCollection, Typesite} from "typesite";
 import * as React from "react";
 import {JsxLayoutPlugin} from "../src/JsxLayoutPlugin";
 import {JsxLayoutMeta} from "../src/JsxLayoutMeta";
+import {JsxLayout} from "../src/JsxLayout";
+import {renderToString} from "react-dom/server";
+import DataTransport from './utils/TestDataTransport';
 
 describe("JsxLayoutPlugin", () => {
     const testStartContents = "This is contents!";
@@ -63,5 +66,27 @@ describe("JsxLayoutPlugin", () => {
         await plugin.run(testFileCollection, typesite);
 
         expect(testFile.getContents().toString()).to.equal(`START<div>${testStartContents}</div>END`);
+    });
+
+    it("Should pass the params to layout renderer", async () => {
+        const testPath = "out.txt";
+        const testFile = new ContentFile(testPath, "");
+        const testFileCollection = new ContentFileCollection("");
+        const typesite = new Typesite("", "");
+        testFile.setContents(testStartContents);
+        testFile.metadata.setItem(new JsxLayoutMeta("test.tsx"));
+        testFileCollection.addFile(testPath, testFile);
+
+        const plugin = new JsxLayoutPlugin({
+            layoutsDirectory: layoutsDirectory,
+            removeDataReactRoot: true
+        });
+
+        await plugin.run(testFileCollection, typesite);
+
+        expect(DataTransport.path).to.equal(testPath);
+        expect(DataTransport.file).to.equal(testFile);
+        expect(DataTransport.files).to.equal(testFileCollection);
+        expect(DataTransport.typesite).to.equal(typesite);
     });
 });

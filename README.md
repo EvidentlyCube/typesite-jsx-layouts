@@ -66,7 +66,7 @@ A class defining layout's contents.
 
 #### `constructor`
 
- * `render: (content: { __html: string }, file:ContentFile, typesite:Typesite) => JSX.Element` A function that should return the final content of the file after being wrapped. `content` is already prepared for use with `dangerouslySetInnerHTML`
+ * `render: (content: { __html: string }, path: string, file: ContentFile, files:ContentFileCollection, typesite: Typesite) => JSX.Element` A function that should return the final content of the file after being wrapped. `content` is already prepared for use with `dangerouslySetInnerHTML`
  
 ### `InvalidLayoutError`
 Exception thrown when layout cannot be found.

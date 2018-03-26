@@ -1,10 +1,10 @@
 {
 	"name": "typesite-jsx-layouts",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Typesite plugin to wrap files with a JSX layout rendered to HTML",
 	"scripts": {
 		"build": "tsc",
-		"test": "mocha %NODE_DEBUG_OPTION% -r ts-node/register tests/**/*.test.*"
+		"test": "mocha -r ts-node/register tests/**/*.test.*"
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

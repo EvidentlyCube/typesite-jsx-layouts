@@ -48,7 +48,7 @@ export class JsxLayoutPlugin implements IPlugin {
             }
 
             const layout = await this.loadLayout(meta.layoutFileName);
-            const contentJsx = layout.render(file.getContents().toString(), file, typesite);
+            const contentJsx = layout.render(file.getContents().toString(), path, file, files, typesite);
             let contentsString = renderToString(contentJsx as any);
 
             if (this._removeDataReactRoot) {
