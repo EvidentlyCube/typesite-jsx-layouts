@@ -24,6 +24,10 @@ export class JsxLayoutPlugin implements IPlugin {
             throw new ArgumentNullError("layoutsDirectory");
         }
 
+        if (typeof options.layoutsDirectory !== "string") {
+            throw new ArgumentInvalidError("layoutsDirectory", `Layouts directory should be null or string, '${options.layoutsDirectory} (${options.layoutsDirectory})' was given`);
+        }
+
         if (!existsSync(options.layoutsDirectory)) {
             throw new ArgumentInvalidError("layoutsDirectory", `Layouts directory "${options.layoutsDirectory}" does not exist or is not readable`);
         }
@@ -33,6 +37,14 @@ export class JsxLayoutPlugin implements IPlugin {
         this._prefix = options.prefix || "";
         this._suffix = options.suffix || "";
         this._layoutsCache = {};
+
+        if (typeof this._prefix !== "string") {
+            throw new ArgumentInvalidError("prefix", `Prefix should be null or string, '${this._prefix} (${typeof this._prefix})' was given`);
+        }
+
+        if (typeof this._suffix !== "string") {
+            throw new ArgumentInvalidError("suffix", `Prefix should be null or string, '${this._suffix} (${typeof this._suffix})' was given`);
+        }
     }
 
     getName(): string {
@@ -64,7 +76,17 @@ export class JsxLayoutPlugin implements IPlugin {
             return this._layoutsCache[layoutFileName];
         }
 
-        const data = await import(resolve(this._layoutsDirectory, layoutFileName));
+        let data;
+        try {
+            data = await import(resolve(this._layoutsDirectory, layoutFileName));
+        } catch (error) {
+            throw new InvalidLayoutError(
+                layoutFileName,
+                "Importing layout file triggered an error: " +
+                (error || "Unknown error").toString()
+            );
+        }
+
         if (!data) {
             throw new InvalidLayoutError(layoutFileName, "File has no export");
         }

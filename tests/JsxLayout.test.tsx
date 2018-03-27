@@ -1,11 +1,35 @@
 import {expect} from 'chai';
 import 'mocha';
-import {ContentFile, ContentFileCollection, Typesite} from "typesite";
+import {ArgumentInvalidError, ArgumentNullError, ContentFile, ContentFileCollection, Typesite} from "typesite";
 import * as React from "react";
 import {renderToString} from "react-dom/server";
 import {JsxLayout} from "../src/JsxLayout";
 
 describe("JsxLayout", () => {
+    describe("Constructor argument validation", () => {
+        it("render=null", () => {
+            expect(() => new JsxLayout(null as any)).to.throw(ArgumentNullError);
+        });
+
+        it("render=undefined", () => {
+            expect(() => new JsxLayout(null as any)).to.throw(ArgumentNullError);
+        });
+
+        const illegalArguments = [
+            1,
+            Number.NaN,
+            "5",
+            [],
+            {},
+            new Date()
+        ];
+
+        for (let argument of illegalArguments) {
+            it(`render=${JSON.stringify(argument)}`, () => {
+                expect(() => new JsxLayout(argument as any)).to.throw(ArgumentInvalidError);
+            });
+        }
+    });
     it("Should call the render callback", () => {
         const testContent = "Hello, I am a test!";
         const pathSource = "out.txt";

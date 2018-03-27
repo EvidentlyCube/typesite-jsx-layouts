@@ -1,4 +1,4 @@
-import {IMeta} from 'typesite';
+import {ArgumentInvalidError, ArgumentNullError, IMeta} from 'typesite';
 
 export class JsxLayoutMeta implements IMeta {
     private _layoutFileName: string;
@@ -8,6 +8,16 @@ export class JsxLayoutMeta implements IMeta {
     }
 
     constructor(layoutFileName: string) {
+        if (layoutFileName === null) {
+            throw new ArgumentNullError("layoutFileName", 'layoutFileName cannot be null');
+        }
+
+        if (typeof layoutFileName !== "string") {
+            throw new ArgumentInvalidError("layoutFileName", `layoutFileName has to be a string, '${JSON.stringify(layoutFileName)} (${typeof layoutFileName})' was given`);
+        }
+
+
+
         this._layoutFileName = layoutFileName;
     }
 

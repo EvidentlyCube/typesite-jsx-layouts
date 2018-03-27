@@ -4,8 +4,6 @@ import {ContentFile, ContentFileCollection, Typesite} from "typesite";
 import * as React from "react";
 import {JsxLayoutPlugin} from "../src/JsxLayoutPlugin";
 import {JsxLayoutMeta} from "../src/JsxLayoutMeta";
-import {JsxLayout} from "../src/JsxLayout";
-import {renderToString} from "react-dom/server";
 import DataTransport from './utils/TestDataTransport';
 
 describe("JsxLayoutPlugin", () => {

@@ -50,23 +50,34 @@ The plugin that performs the wrapping in layout.
 
 #### `constructor`
  
- * `options.layoutsDirectory: string` The relative or absolute path to the directory containing the layouts. The layouts defined in `JsxLayoutMeta` will be resolved by being joined with this value.
- * `options.removeDataReactRoot: boolean` Controls whether to remove any and all `data-reactroot` attributes that might appear 
- * `options.prefix: string` and `options.suffix: string` Optional strings which are added before and after the layout respectively. Useful if you want to add doctype before the actual HTML or anything else that can't be a valid JSX.
+ * **Argument** `options.layoutsDirectory: string` The relative or absolute path to the directory containing the layouts. The layouts defined in `JsxLayoutMeta` will be resolved by being joined with this value.
+ * **Argument** `options.removeDataReactRoot: boolean` Controls whether to remove any and all `data-reactroot` attributes that might appear 
+ * **Argument** `options.prefix: string` and `options.suffix: string` Optional strings which are added before and after the layout respectively. Useful if you want to add doctype before the actual HTML or anything else that can't be a valid JSX.
+ * **Exception** `Typesite.ArgumentNullError` when `options.layoutsDirectory` is null
+ * **Exception** `Typepsite.ArgumentInvalidError` when:
+   * `options.layoutsDirectory` does not exist
+   * `options.prefix` is not `null` or a `string`
+   * `options.suffix` is not `null` or a `string`
 
 ### `JsxLayoutMeta`
-The meta that defines which layout to use for the file
+The meta that defines which layout to use for the given file
 
 #### `constructor`
 
- * `layoutFileName :string` Name or path to the layout file, relative to `layoutsDirectory` defined in `JsxLayoutPlugin` 
+ * **Argument** `layoutFileName :string` Name or path to the layout file, relative to `layoutsDirectory` defined in `JsxLayoutPlugin` 
+ * **Exception** `Typesite.ArgumentNullError` When `layoutFileName` is null
+ * **Exception** `Typesite.ArgumentInvalidError` When `layoutFileName` is not a string
  
 ### `JsxLayout`
 A class defining layout's contents.
 
 #### `constructor`
 
- * `render: (content: { __html: string }, path: string, file: ContentFile, files:ContentFileCollection, typesite: Typesite) => JSX.Element` A function that should return the final content of the file after being wrapped. `content` is already prepared for use with `dangerouslySetInnerHTML`
+ * **Argument** `render: (content: { __html: string }, path: string, file: ContentFile, files:ContentFileCollection, typesite: Typesite) => JSX.Element` A function that should return the final content of the file after being wrapped. `content` is already prepared for use with `dangerouslySetInnerHTML`
+ * **Exception** `Typesite.ArgumentNullError` When `render` is null
+ * **Exception** `Typesite.ArgumentInvalidError` When `render` is not a function
  
 ### `InvalidLayoutError`
-Exception thrown when layout cannot be found.
+Exception thrown when layout file cannot be found, is not accessible, is incorrect or does not `export default` an instance of `JsxLayout`.
+
+ * **Getter** `layoutFileName` Name of the file which had thrown an error
