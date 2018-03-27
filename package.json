@@ -1,6 +1,6 @@
 {
 	"name": "typesite-jsx-layouts",
-	"version": "1.1.1",
+	"version": "1.2.1",
 	"description": "Typesite plugin to wrap files with a JSX layout rendered to HTML",
 	"scripts": {
 		"build": "tsc",
@@ -36,7 +36,7 @@
 		"@types/react-dom": "^16.0.4",
 		"react": "^16.2.0",
 		"react-dom": "^16.2.0",
-		"typesite": "^0.3.0"
+		"typesite": "^0.4.0"
 	},
 	"devDependencies": {
 		"@types/chai": "^4.1.2",
